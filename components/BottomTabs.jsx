@@ -3,6 +3,7 @@ import React from "react";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
+import Profile from "../screens/Profile";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -48,7 +49,7 @@ export default function BottomTabs() {
       />
       <BottomTab.Screen
         name="Profile"
-        component={Home}
+        component={Profile}
         options={{
           tabBarIcon: ({ focused }) => (
             <Image

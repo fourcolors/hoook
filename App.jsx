@@ -1,5 +1,5 @@
 import React from "react";
-import Routes from "./routes";
+import Routes from "./Routes";
 import WalletConnectProvider from "react-native-walletconnect";
 import { LivepeerConfig } from "@livepeer/react-native";
 import LPClient from "./clients/livepeer";

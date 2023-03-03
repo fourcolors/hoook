@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
+import { Profile } from "@lens-protocol/react-native-lens-ui-kit";
 
-export default function Profile() {
+export default function ProfileScreen() {
   return (
     <View>
-      <Text>Profile</Text>
+      <Profile profile={"whyfud.lens"} />
     </View>
   );
 }
