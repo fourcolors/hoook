@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  PanResponder,
   FlatList,
   Dimensions,
 } from "react-native";
@@ -23,31 +22,49 @@ const songs = [
     albumArt: require("./a2.png"),
     songTitle: "Song 2",
     artistName: "Artist 2",
-    audioFile: require("./wavhart.mp3"),
+    audioFile: require("./Roses-KiahVictoria.mp3"),
   },
   {
     albumArt: require("./a3.png"),
     songTitle: "Song 3",
     artistName: "Artist 3",
-    audioFile: require("./wavhart.mp3"),
+    audioFile: require("./CristalesSwimz.mp3"),
   },
   {
     albumArt: require("./a4.png"),
     songTitle: "Song 4",
     artistName: "Artist 4",
-    audioFile: require("./wavhart.mp3"),
+    audioFile: require("./MoreThanThis-GDSN.mp3"),
   },
 ];
 
-const { height: WINDOW_HEIGHT, width: WINDOW_WIDTH } = Dimensions.get("window");
+const { width: WINDOW_WIDTH } = Dimensions.get("window");
 
 const MusicBar = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [sound, setSound] = useState(null);
   const [songIndex, setSongIndex] = useState(0);
 
+  async function playIndexedSong() {
+    if (sound !== null) {
+      await sound.unloadAsync();
+      setSound(null);
+    }
+    const { sound: newSound } = await Audio.Sound.createAsync(
+      songs[songIndex].audioFile
+    );
+    await newSound.playAsync();
+    await newSound.setVolumeAsync(1.0);
+    // fix sound issue
+    Audio.setAudioModeAsync({ allowsRecordingIOS: false });
+    setSound(newSound);
+    return newSound;
+  }
+
   useEffect(() => {
-    // stop
+    if (isPlaying) {
+      playIndexedSong();
+    }
     return () => {
       if (sound !== null) {
         sound.unloadAsync();
@@ -62,10 +79,7 @@ const MusicBar = () => {
     }
 
     if (!isPlaying) {
-      const { sound: newSound } = await Audio.Sound.createAsync(
-        songs[songIndex].audioFile
-      );
-      setSound(newSound);
+      const newSound = await playIndexedSong();
 
       await newSound.playAsync();
       await newSound.setVolumeAsync(1.0);
