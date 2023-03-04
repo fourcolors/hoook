@@ -1,78 +1,59 @@
 import React, { useState } from "react";
-import { StyleSheet, View, FlatList, Dimensions, Text } from "react-native";
-import Video from "react-native-video";
+import { View, StyleSheet, Dimensions, FlatList } from "react-native";
+import { Video } from "expo-av";
 
 const { width } = Dimensions.get("window");
 
 const videos = [
   {
+    uri: require("./1.mp4"),
     id: "1",
-    uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
   },
   {
+    uri: require("./2.mp4"),
     id: "2",
-    uri: "https://www.w3schools.com/html/mov_bbb.mp4",
   },
   {
+    uri: require("./3.mov"),
     id: "3",
-    uri: "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
   },
 ];
 
-const VideoSlider = () => {
+const VideoSelector = () => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
-  const handleVideoEnd = () => {
-    if (currentVideoIndex < videos.length - 1) {
-      setCurrentVideoIndex(currentVideoIndex + 1);
-    } else {
-      setCurrentVideoIndex(0);
+  const handleVideoEnd = ({ didJustFinish }) => {
+    if (didJustFinish) {
+      setCurrentVideoIndex((index) => (index + 1) % videos.length);
     }
   };
-
-  const renderItem = ({ item, index }) => (
-    <View style={styles.videoContainer}>
-      <Video
-        source={{ uri: item.uri }}
-        style={styles.video}
-        resizeMode="cover"
-        onEnd={handleVideoEnd}
-        muted={false}
-        repeat={false}
-        playInBackground={false}
-        playWhenInactive={false}
-      />
-    </View>
-  );
 
   return (
     <View style={styles.container}>
       <FlatList
         data={videos}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        onMomentumScrollEnd={(event) => {
-          const offsetX = event.nativeEvent.contentOffset.x;
-          const index = Math.round(offsetX / width);
+        keyExtractor={(item) => item.id}
+        renderItem={({ item, index }) => (
+          <View style={{ width, height: "100%" }}>
+            <Video
+              isMuted
+              source={item.uri}
+              resizeMode="contain"
+              style={styles.video}
+              onPlaybackStatusUpdate={handleVideoEnd}
+              shouldPlay={index === currentVideoIndex}
+            />
+          </View>
+        )}
+        onMomentumScrollEnd={({ nativeEvent }) => {
+          const { contentOffset } = nativeEvent;
+          const index = Math.round(contentOffset.x / width);
           setCurrentVideoIndex(index);
         }}
       />
-      <View style={styles.indicatorContainer}>
-        {videos.map((video, index) => (
-          <Text
-            key={video.id}
-            style={[
-              styles.indicator,
-              index === currentVideoIndex && styles.activeIndicator,
-            ]}
-          >
-            ⚪
-          </Text>
-        ))}
-      </View>
     </View>
   );
 };
@@ -82,29 +63,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000",
   },
-  videoContainer: {
-    width,
-    height: "100%",
-  },
   video: {
     flex: 1,
   },
-  indicatorContainer: {
-    position: "absolute",
-    bottom: 20,
-    left: 0,
-    right: 0,
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  indicator: {
-    margin: 5,
-    fontSize: 30,
-    color: "#aaa",
-  },
-  activeIndicator: {
-    color: "#fff",
-  },
 });
 
-export default VideoSlider;
+export default VideoSelector;
