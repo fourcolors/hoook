@@ -4,6 +4,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
 import Profile from "../screens/Profile";
+import MediaSelector from "../screens/MediaSelector";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -32,8 +33,8 @@ export default function BottomTabs() {
         }}
       />
       <BottomTab.Screen
-        name="NewVideo"
-        component={Home}
+        name="MediaSelector"
+        component={MediaSelector}
         options={{
           tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
