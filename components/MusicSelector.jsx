@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -45,7 +45,6 @@ const MusicBar = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [sound, setSound] = useState(null);
   const [songIndex, setSongIndex] = useState(0);
-  const [songTitleOffset, setSongTitleOffset] = useState(0);
 
   useEffect(() => {
     // stop
@@ -76,51 +75,24 @@ const MusicBar = () => {
     }
   };
 
-  const handleSongTitleSwipe = (evt, gestureState) => {
-    setSongTitleOffset(gestureState.dx);
-  };
+  const handleScroll = (event) => {
+    const viewSize = event.nativeEvent.layoutMeasurement.width;
+    const contentOffset = event.nativeEvent.contentOffset.x;
 
-  const handleSongTitleSwipeEnd = () => {
-    const songTitleWidth = 150; // adjust this value based on your title font size and length
-    const offset = songTitleOffset / songTitleWidth;
-    let index = songIndex;
-
-    if (offset > 0.5 && songIndex < 3) {
-      index++;
-    } else if (offset < -0.5 && songIndex > 0) {
-      index--;
-    }
-
-    setSongTitleOffset(0);
+    const index = Math.floor(contentOffset / viewSize);
     setSongIndex(index);
   };
-
-  const songTitlePosition = {
-    transform: [{ translateX: songTitleOffset }],
-  };
-
-  const panResponder = PanResponder.create({
-    onMoveShouldSetPanResponderCapture: () => true,
-    onPanResponderMove: (evt, gestureState) => {
-      if (gestureState.dx !== 0) {
-        handleSongTitleSwipe(evt, gestureState);
-      }
-    },
-    onPanResponderRelease: () => {
-      handleSongTitleSwipeEnd();
-    },
-  });
 
   return (
     <View style={styles.container}>
       <FlatList
+        onMomentumScrollEnd={handleScroll}
         data={songs}
         horizontal
         snapToInterval={WINDOW_WIDTH}
         showsHorizontalScrollIndicator={false}
         decelerationRate="fast"
         renderItem={({ item, index }) => {
-          console.log("song", item);
           return (
             <View style={styles.songContainer}>
               <Image source={songs[index].albumArt} style={styles.albumArt} />
@@ -134,7 +106,7 @@ const MusicBar = () => {
           );
         }}
         onScroll={(e) => {
-          console.log(e);
+          //console.log(e);
         }}
       />
 
