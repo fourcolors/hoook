@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 function Routes() {
   const { session } = useWalletConnect();
 
-  const isLoggedIn = !!session;
+  const isLoggedIn = !!session.length;
 
   return (
     <NavigationContainer>
@@ -20,9 +20,9 @@ function Routes() {
         }}
       >
         {isLoggedIn ? (
-          <Stack.Screen name="Login" component={Login} />
-        ) : (
           <Stack.Screen name="Home" component={BottomTabs} />
+        ) : (
+          <Stack.Screen name="Login" component={Login} />
         )}
       </Stack.Navigator>
     </NavigationContainer>
