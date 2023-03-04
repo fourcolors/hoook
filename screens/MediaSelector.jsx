@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import MusicBar from "../components/MusicSelector";
+import VideoSelector from "../components/VideoSelector";
 
 export default function MediaSelector() {
   return (
     <View style={styles.container}>
-      <Text>React Selector</Text>
+      <VideoSelector />
       <MusicBar />
     </View>
   );

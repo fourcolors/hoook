@@ -20,20 +20,20 @@ const songs = [
   },
   {
     albumArt: require("./a2.png"),
-    songTitle: "Song 2",
-    artistName: "Artist 2",
+    songTitle: "Roses",
+    artistName: "Kiah Victoria",
     audioFile: require("./Roses-KiahVictoria.mp3"),
   },
   {
     albumArt: require("./a3.png"),
-    songTitle: "Song 3",
-    artistName: "Artist 3",
+    songTitle: "Cristales",
+    artistName: "Swimz",
     audioFile: require("./CristalesSwimz.mp3"),
   },
   {
     albumArt: require("./a4.png"),
-    songTitle: "Song 4",
-    artistName: "Artist 4",
+    songTitle: "More Than This",
+    artistName: "GDSN",
     audioFile: require("./MoreThanThis-GDSN.mp3"),
   },
 ];
