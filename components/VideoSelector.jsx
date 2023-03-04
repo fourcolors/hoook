@@ -39,9 +39,10 @@ const VideoSelector = () => {
         renderItem={({ item, index }) => (
           <View style={{ width, height: "100%" }}>
             <Video
+              resizeMode="contain"
+              isLooping
               isMuted
               source={item.uri}
-              resizeMode="contain"
               style={styles.video}
               onPlaybackStatusUpdate={handleVideoEnd}
               shouldPlay={index === currentVideoIndex}

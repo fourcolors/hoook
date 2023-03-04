@@ -12,7 +12,7 @@ export default function BottomTabs() {
   return (
     <BottomTab.Navigator
       screenOptions={{
-        tabBarStyle: { backgroundColor: "black", borderWidth: 0 },
+        tabBarStyle: { backgroundColor: "black", borderTopWidth: 0 },
         headerShown: false,
         tabBarActiveTintColor: "white",
       }}
