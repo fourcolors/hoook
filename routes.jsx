@@ -3,10 +3,15 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import BottomTabs from "./components/BottomTabs";
 import Login from "./screens/Login";
+import { useWalletConnect } from "react-native-walletconnect";
 
 const Stack = createStackNavigator();
 
 function Routes() {
+  const { session } = useWalletConnect();
+
+  const isLoggedIn = !!session;
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -14,8 +19,11 @@ function Routes() {
           headerShown: false,
         }}
       >
-        {/* <Stack.Screen name="Login" component={Login} /> */}
-        <Stack.Screen name="Home" component={BottomTabs} />
+        {isLoggedIn ? (
+          <Stack.Screen name="Login" component={Login} />
+        ) : (
+          <Stack.Screen name="Home" component={BottomTabs} />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
