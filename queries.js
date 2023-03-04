@@ -1,4 +1,13 @@
 import { gql } from "@apollo/client";
+
+export const CHALLENGE = gql`
+  query Challenge($address: EthereumAddress!) {
+    challenge(request: { address: $address }) {
+      text
+    }
+  }
+`;
+
 export const EXPLORE_POSTS = gql`
   query ($request: ExplorePublicationRequest!) {
     explorePublications(request: $request) {

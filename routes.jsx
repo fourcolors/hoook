@@ -9,7 +9,6 @@ const Stack = createStackNavigator();
 
 function Routes() {
   const { session } = useWalletConnect();
-
   const isLoggedIn = !!session.length;
 
   return (

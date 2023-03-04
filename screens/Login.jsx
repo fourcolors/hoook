@@ -4,6 +4,7 @@ import React from "react";
 
 import logo from "../components/signup.png"; // import your image file
 
+// do the challenge and then store in context
 export default function Login() {
   return (
     <View style={styles.container}>

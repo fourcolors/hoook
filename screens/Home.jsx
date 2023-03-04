@@ -1,9 +1,11 @@
 import { FlatList, StyleSheet, View, Dimensions } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { EXPLORE_POSTS } from "../queries";
 import { useQuery } from "@apollo/client";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import VideoPlayer from "../components/VideoPlayer";
+import { useWalletConnect } from "react-native-walletconnect";
+import { CHALLENGE } from "../queries";
 
 export default function Home() {
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
@@ -23,6 +25,8 @@ export default function Home() {
 
   const pageInfo = data?.explorePublications?.pageInfo;
   const videos = data?.explorePublications?.items;
+
+  useEffect(() => {}, []);
 
   return (
     <View style={styles.container}>
