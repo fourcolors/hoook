@@ -40,10 +40,7 @@ export default function BottomTabs() {
           tabBarIcon: ({ focused }) => (
             <Image
               source={require("../assets/new-video.png")}
-              style={[
-                styles.newVideoButton,
-                focused && styles.bottomTabIconFocused,
-              ]}
+              style={styles.newVideoButton}
             />
           ),
         }}

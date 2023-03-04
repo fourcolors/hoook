@@ -14,7 +14,7 @@ const videos = [
     id: "2",
   },
   {
-    uri: require("./3.mov"),
+    uri: require("./3.mp4"),
     id: "3",
   },
 ];
