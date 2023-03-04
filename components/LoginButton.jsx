@@ -8,13 +8,13 @@ export default function LoginButton() {
     useWalletConnect();
 
   const handleLogin = async () => {
-    if (!session) {
+    if (!session.length) {
       await createSession();
     }
   };
 
   const handleLogout = async () => {
-    if (session) {
+    if (session.length) {
       await killSession();
     }
   };
@@ -38,7 +38,7 @@ export default function LoginButton() {
 
   return (
     <>
-      {session ? (
+      {session.length ? (
         <AnimatedButton title="Logout" onPress={handleLogout} />
       ) : (
         <AnimatedButton title="Login" onPress={handleLogin} />
