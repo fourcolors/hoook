@@ -119,6 +119,8 @@ export async function postPublicationMutation(request, token) {
   return result.data.createPostTypedData;
 }
 
+const projectId = 1;
+const projectSecret = "super";
 const auth =
   "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
 

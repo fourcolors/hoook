@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {useLensContext} from "../LensContext"
+import { useLensContext } from "../LensContext";
 import {
   TouchableOpacity,
   View,
@@ -8,6 +8,7 @@ import {
   FlatList,
 } from "react-native";
 import { Video } from "expo-av";
+import { postPublicationMutation, uploadToIPFS } from "../api";
 
 let timerId;
 
@@ -15,47 +16,51 @@ const { width } = Dimensions.get("window");
 
 const videos = [
   {
-    uri: require("../assets/4.mp4"),
+    uri: require("../assets/4.mp4"), // removed vids for upload
     id: "1",
   },
   {
-    uri: require("../assets/5.mp4"),
+    uri: require("../assets/5.mp4"), // removed vids for upload
     id: "2",
   },
   {
-    uri: require("../assets/6.mp4"),
+    uri: require("../assets/6.mp4"), // removed vids for upload
     id: "3",
   },
 ];
 
 const VideoSelector = () => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const {state: token } = useLensContext()
+  const { jwtToken } = useLensContext();
+  const profileId = "hoooks.lens";
+
+  async function handleLongPress() {
+    const ipfsData = await uploadToIPFS(
+      videos[currentVideoIndex],
+      "vid",
+      "new vid",
+      {}
+    );
+    timerId = setTimeout(() => {
+      const postRequest = {
+        profileId,
+        contentURI: "ipfs://" + ipfsData.path,
+        collectModule: {
+          freeCollectModule: { followerOnly: true },
+        },
+        referenceModule: {
+          followerOnlyReferenceModule: false,
+        },
+      };
+
+      postPublicationMutation(postRequest, jwtToken);
+    }, 3000); // 3 seconds
+  }
 
   const handleVideoEnd = ({ didJustFinish }) => {
     if (didJustFinish) {
       setCurrentVideoIndex((index) => (index + 1) % videos.length);
     }
-  };
-  const handleLongPress = async () => {
-    timerId = setTimeout(() => {
-      const ipfsData = await uploadToIPFS()
-      const postRequest = {
-        profileId,
-        contentURI: 'ipfs://' + ipfsData.path,
-        collectModule: {
-          freeCollectModule: { followerOnly: true }
-        },
-        referenceModule: {
-          followerOnlyReferenceModule: false
-        },
-      }
-
-      postPublicationMutation(postRequest, token)
-
-
-
-    }, 3000); // 3 seconds
   };
 
   const handleCancelPress = () => {

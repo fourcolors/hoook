@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet, View, Dimensions } from "react-native";
 import React, { useState, useEffect } from "react";
-import { feed } from "./api";
+import { feed } from "../api";
 import { useQuery } from "@apollo/client";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import VideoPlayer from "../components/VideoPlayer";
