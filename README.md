@@ -1,1 +1,1 @@
-Hooks Demo
+Hooks Demo with Lens

@@ -1,18 +1,16 @@
 import { FlatList, StyleSheet, View, Dimensions } from "react-native";
 import React, { useState, useEffect } from "react";
-import { EXPLORE_POSTS } from "../queries";
+import { feed } from "./api";
 import { useQuery } from "@apollo/client";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import VideoPlayer from "../components/VideoPlayer";
-import { useWalletConnect } from "react-native-walletconnect";
-import { CHALLENGE } from "../queries";
 
 export default function Home() {
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
 
   const bottomTabHeight = useBottomTabBarHeight();
   const { height: WINDOW_HEIGHT } = Dimensions.get("window");
-  const { data } = useQuery(EXPLORE_POSTS, {
+  const { data } = useQuery(feed, {
     variables: {
       request: {
         limit: 10,

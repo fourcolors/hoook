@@ -37,22 +37,18 @@ export default function LoginButton() {
 
       // double check what jwtData looks like
       console.log("jwtData", jwtData);
-      // dispatch("SET_JWT_TOKEN", jwtData.jwt);
-      // dispatch("SET_JWT_REFRESH", jwtData.jwtRefresh);
+      dispatch("SET_JWT_TOKEN", jwtData.jwt);
+      dispatch("SET_JWT_REFRESH", jwtData.jwtRefresh);
     }
   };
 
   React.useEffect(() => {
     Linking.addEventListener("url", handleDeepLink);
-
-    // return () => {
-    //   Linking.removeEventListener("url", handleDeepLink);
-    // };
   }, []);
 
   return (
     <>
-      {false ? (
+      {session.length ? (
         <AnimatedButton title="Logout" onPress={handleLogout} />
       ) : (
         <AnimatedButton title="Login" onPress={handleLogin} />

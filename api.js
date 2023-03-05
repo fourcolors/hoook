@@ -34,6 +34,7 @@ export const authenticate = gql`
     }
   }
 `;
+
 export async function getJwt(signature, address) {
   const authData = await client.mutate({
     mutation: authenticate,
@@ -43,4 +44,27 @@ export async function getJwt(signature, address) {
     },
   });
   return authData;
+}
+
+export const feed = gql`
+  query Challenge($address: EthereumAddress!) {
+    challenge(request: { address: $address }) {
+      text
+    }
+  }
+`;
+
+export async function getFeed() {
+  const { data: feedData } = await client.query({
+    query: feed,
+    variables: {
+      request: {
+        limit: 10,
+        sources: ["lenstube-bytes"],
+        publicationTypes: ["POST"],
+        sortCriteria: "CURATED_PROFILES",
+      },
+    },
+  });
+  return feedData;
 }
