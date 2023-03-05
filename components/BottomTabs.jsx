@@ -39,7 +39,7 @@ export default function BottomTabs() {
           tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
             <Image
-              source={require("../assets/new-video.png")}
+              source={require("../assets/hoooksfavi.png")}
               style={styles.newVideoButton}
             />
           ),
