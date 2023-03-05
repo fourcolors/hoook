@@ -2,7 +2,7 @@ import { StyleSheet, View, Image } from "react-native";
 import LoginButton from "../components/LoginButton";
 import React from "react";
 
-import logo from "../components/signup.png"; // import your image file
+import logo from "../assets/signup.png"; // import your image file
 
 // do the challenge and then store in context
 export default function Login() {

@@ -1,6 +1,12 @@
 import client from "./clients/apollo";
 import { gql } from "@apollo/client";
 
+const API_URL = "https://api.lens.dev";
+
+const httpLink = createHttpLink({
+  uri: API_URL,
+});
+
 export const challengeQuery = gql`
   query Challenge($address: EthereumAddress!) {
     challenge(request: { address: $address }) {
@@ -11,7 +17,8 @@ export const challengeQuery = gql`
 
 // returns a challenge
 export async function getChallenge(address) {
-  const { data: challenge } = await client.query(challengeQuery, {
+  const { data: challenge } = await client.query({
+    query: challengeQuery,
     variables: {
       address,
     },

@@ -12,15 +12,15 @@ const { width } = Dimensions.get("window");
 
 const videos = [
   {
-    uri: require("./4.mp4"),
+    uri: require("../assets/4.mp4"),
     id: "1",
   },
   {
-    uri: require("./5.mp4"),
+    uri: require("../assets/5.mp4"),
     id: "2",
   },
   {
-    uri: require("./6.mp4"),
+    uri: require("../assets/6.mp4"),
     id: "3",
   },
 ];
