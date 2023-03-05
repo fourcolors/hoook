@@ -13,28 +13,22 @@ import { Audio } from "expo-av";
 // define the array of songs with their information
 const songs = [
   {
-    albumArt: require("./a1.png"),
-    songTitle: "To the end",
-    artistName: "Wave Hart",
-    audioFile: require("./ToTheEnd-WavHart.mp3"),
-  },
-  {
-    albumArt: require("./a2.png"),
-    songTitle: "Roses",
-    artistName: "Kiah Victoria",
-    audioFile: require("./Roses-KiahVictoria.mp3"),
-  },
-  {
-    albumArt: require("./a3.png"),
-    songTitle: "Cristales",
-    artistName: "Swimz",
-    audioFile: require("./CristalesSwimz.mp3"),
-  },
-  {
     albumArt: require("./a4.png"),
     songTitle: "More Than This",
     artistName: "GDSN",
     audioFile: require("./MoreThanThis-GDSN.mp3"),
+  },
+  {
+    albumArt: require("./a4.png"),
+    songTitle: "Roses",
+    artistName: "Kiah Victoria",
+    audioFile: require("./Roses.mp3"),
+  },
+  {
+    albumArt: require("./a3.png"),
+    songTitle: "Love Myself",
+    artistName: "GDSM",
+    audioFile: require("./LoveMySelf.mp3"),
   },
 ];
 
@@ -44,6 +38,9 @@ const MusicBar = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [sound, setSound] = useState(null);
   const [songIndex, setSongIndex] = useState(0);
+  // useEffect(() => {
+  //   playIndexedSong();
+  // }, []);
 
   async function playIndexedSong() {
     if (sound !== null) {

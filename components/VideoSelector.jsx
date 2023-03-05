@@ -1,20 +1,26 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Dimensions, FlatList } from "react-native";
+import {
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  Dimensions,
+  FlatList,
+} from "react-native";
 import { Video } from "expo-av";
 
 const { width } = Dimensions.get("window");
 
 const videos = [
   {
-    uri: require("./1.mp4"),
+    uri: require("./4.mp4"),
     id: "1",
   },
   {
-    uri: require("./2.mp4"),
+    uri: require("./5.mp4"),
     id: "2",
   },
   {
-    uri: require("./3.mp4"),
+    uri: require("./6.mp4"),
     id: "3",
   },
 ];
@@ -27,6 +33,15 @@ const VideoSelector = () => {
       setCurrentVideoIndex((index) => (index + 1) % videos.length);
     }
   };
+  const handleLongPress = () => {
+    timerId = setTimeout(() => {
+      console.log("Button was long pressed!");
+    }, 3000); // 3 seconds
+  };
+
+  const handleCancelPress = () => {
+    clearTimeout(timerId);
+  };
 
   return (
     <View style={styles.container}>
@@ -37,6 +52,10 @@ const VideoSelector = () => {
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id}
         renderItem={({ item, index }) => (
+          // <TouchableOpacity
+          // // onLongPress={handleLongPress}
+          // // onPressOut={handleCancelPress}
+          // >
           <View style={{ width, height: "100%" }}>
             <Video
               resizeMode="contain"
@@ -48,6 +67,7 @@ const VideoSelector = () => {
               shouldPlay={index === currentVideoIndex}
             />
           </View>
+          // </TouchableOpacity>
         )}
         onMomentumScrollEnd={({ nativeEvent }) => {
           const { contentOffset } = nativeEvent;

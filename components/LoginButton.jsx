@@ -52,7 +52,7 @@ export default function LoginButton() {
 
   return (
     <>
-      {session.length ? (
+      {false ? (
         <AnimatedButton title="Logout" onPress={handleLogout} />
       ) : (
         <AnimatedButton title="Login" onPress={handleLogin} />
